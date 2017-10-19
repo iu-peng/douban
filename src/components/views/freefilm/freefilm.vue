@@ -7,7 +7,9 @@
                 <h3>{{item.title}}</h3>
                 <p>
                     <star v-if="item.rating" :starval="item.rating"></star>
-                    {{item.rating?item.rating.value:'暂无评分'}}</p>
+                    {{item.rating?item.rating.value:'暂无评分'}}
+                </p>
+                <span class="or-play">{{item.actions[0]}}</span>
             </li>
         </ul>
     </div>
@@ -30,7 +32,7 @@
         },
         mounted(){
             jsonp(
-                'https://m.douban.com/rexxar/api/v2/subject_collection/movie_showing/items?os=ios&for_mobile=1&start=0&count=50&loc_id=108288&_=1508344422235',
+                'https://m.douban.com/rexxar/api/v2/subject_collection/movie_free_stream/items?os=ios&for_mobile=1&start=0&count=50&loc_id=108288&_=1508412206602',
                 {param:'callback'},
                 (err,data)=>{
                     this.hotFilmTitle = data.subject_collection.name
@@ -51,7 +53,7 @@
         float:left;
         height:5.7rem;
         width:2.64rem;
-
+        position:relative;
     }
     .focus-box li:nth-child(3n+2){
         margin:0 .8rem;
@@ -78,5 +80,18 @@
         line-height:.4rem;
         color:#414141;
         font-size:.33rem;
+    }
+    .or-play{
+        position:absolute;
+        bottom:2.1rem;
+        right:.2rem;
+        width:1.05rem;
+        height:.5rem;
+        color:#fff;
+        text-align:center;
+        line-height:.6rem;
+        border-radius:.08rem;
+        background:orange;
+        border:.04rem solid #fff;
     }
 </style>

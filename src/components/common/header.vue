@@ -3,7 +3,7 @@
         <h2 class="fl logo">豆瓣</h2>
         <nav class="fr">
             <ul class="fl head-bt">
-                <li>电影</li>
+                <router-link :to="{name:'films'}" tag="li">电影</router-link>
                 <li>图书</li>
             </ul>
             <span class="fl search"></span>

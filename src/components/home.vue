@@ -25,5 +25,6 @@
 <style scoped>
     #home{
         padding:0 0 0 .5rem;
+        overflow:hidden;
     }
 </style>

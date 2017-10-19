@@ -43,17 +43,18 @@
         mounted(){
             axios.get('http://localhost:3200/api/home')
             .then((data)=>{
-                console.log( data )
+                //console.log( data.data )
                 if(data.data.date){
                     console.log(1)
                     this.allData = data.data.recommend_feeds
                 }else{
                     console.log(2)
-                    console.log(data)
                     let d = data.data.replace(/\\u/g, "%u")
                     d = unescape(d.replace(/\\/g, ""))
                     //d = JSON.stringify(d)
                     d = JSON.parse(d)
+
+                    //d = JSON.parse(data.data)
                     this.allData = d.recommend_feeds
                 }
                 /*let d = data.data.replace(/\\u/g, "%u")
@@ -110,7 +111,8 @@
         width:6.5rem;
         height:1.65rem;
         overflow:hidden;
-        white-space: wrap;text-overflow: ellipsis;
+        white-space: wrap;
+        text-overflow: ellipsis;
     }
     .art-right,.art-right img{
         width:2.5rem;

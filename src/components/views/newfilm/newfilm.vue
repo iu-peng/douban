@@ -1,6 +1,6 @@
 <template>
     <div id="hotfilm">
-        <h2>{{hotFilmTitle}}</h2>
+        <h2>{{filmTitle}}</h2>
         <ul class="focus-box">
             <li v-for="item,index in allData">
                 <img :src="item.cover.url" alt="">
@@ -21,7 +21,7 @@
     export default {
         data () {
             return {
-                hotFilmTitle:'',
+                filmTitle:'',
                 allData:[]
             }
         },
@@ -29,11 +29,10 @@
             Star
         },
         mounted(){
-            jsonp(
-                'https://m.douban.com/rexxar/api/v2/subject_collection/movie_showing/items?os=ios&for_mobile=1&start=0&count=50&loc_id=108288&_=1508344422235',
+            jsonp('https://m.douban.com/rexxar/api/v2/subject_collection/movie_latest/items?os=ios&start=0&count=50&loc_id=108288&_=1508419435006',
                 {param:'callback'},
                 (err,data)=>{
-                    this.hotFilmTitle = data.subject_collection.name
+                    this.filmTitle = data.subject_collection.name
                     this.allData = data.subject_collection_items
                 }
             )

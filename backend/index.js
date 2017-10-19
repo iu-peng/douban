@@ -20,6 +20,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
 })
+
 // let shopList = {};
 // fs.readFile('./data/offtengoods.json', (error, data) => {
 //   shopList = {
@@ -343,6 +344,7 @@ app.use((req, res, next) => {
 
 function getPagesHtml(urls){
     return new Promise((resolve,reject) => {
+      console.log(22)
         var urlParse = url.parse(urls);
 
         let options = {
@@ -372,7 +374,7 @@ function getPagesHtml(urls){
         req.end();
     });
 }
-//请求未来天气
+//请求主页数据
 app.get('/api/home',function (req,res){
   getPagesHtml('https://m.douban.com/rexxar/api/v2/recommend_feed?alt=json&next_date=&loc_id=108288&gender=&birthday=&udid=9fcefbf2acf1dfc991054ac40ca5114be7cd092f&for_mobile=1')
   .then(function (data){
@@ -381,33 +383,34 @@ app.get('/api/home',function (req,res){
     res.send(data.toString());
   }) 
 })
-//https://m.douban.com/rexxar/api/v2/recommend_feed?alt=json&next_date=&loc_id=108288&gender=&birthday=&udid=9fcefbf2acf1dfc991054ac40ca5114be7cd092f&for_mobile=1
 
-// //请求当日天气
-// app.get('/api/weatherToday',function (req,res){
-//   getPagesHtml('https://api.seniverse.com/v3/weather/now.json?key=zaeco6ttnzzrmlkv&location=beijing&language=zh-Hans&unit=c')
-//   .then(function (data){
-//     res.send(data.toString());
-//   })  
-// })
-// //查询指定城市未来的天气
-// app.get('/api/weatherCity',function (req,res){
-//   let cityname = req.query.cityname
-//   console.log(cityname)
-//   getPagesHtml(`https://api.seniverse.com/v3/weather/daily.json?key=zaeco6ttnzzrmlkv&location=${cityname}&language=zh-Hans&unit=c&start=0&days=5`)
-//   .then(function (data){
+let filmsplaying = {};
+fs.readFile('./data/filmplaying.json', (error, data) => {
+  filmsplaying = {
+    list: JSON.parse(data.toString())
+  }
+})
+
+
+app.get('/api/aaa', (req, res) => {
+  // 暂时先已读取的形式
+  res.send(filmsplaying)
+})
+app.get('/api/goodskind', (req, res) => {
+  // 暂时先已读取的形式
+  res.send(goodskind)
+})
+
+//请求正在热映电影
+app.get('/api/filmsHot',function (req,res){
+  getPagesHtml('https://api.douban.com/v2/movie/in_theaters')
+  .then(function (data){
+    //console.log(data.toString())
     
-//     res.send(data.toString());
-//   })  
-// })
+    res.send(data.toString());
+  }) 
+})
 
-// //请求24小时时段天气
-// app.get('/api/24hours',function (req,res){
-//   getPagesHtml('https://weatherapi.market.xiaomi.com/wtr-v3/weather/all?latitude=110&longitude=112&locationKey=weathercn%3A101010100&days=15&appKey=weather20151024&sign=zUFJoAR2ZVrDy1vF3D07&isGlobal=false&locale=zh_cn')
-//   .then(function (data){
-//     res.send(data.toString());
-//   }) 
-// })
 
 /*app.get('/item', (req, res) => {
   let {id} = req.query;
