@@ -1,46 +1,64 @@
 <template>
-    <div id="hotfilm">
+    <div id="films">
         <h2>
             {{hotFilmTitle}}
             <router-link :to="{name:'hotfilm'}" tag="span">更多</router-link>
         </h2>
         <ul class="focus-box clearfix">
-            <li v-for="item,index in playingArr" key="index">
+            <router-link 
+                v-for="item,index in playingArr" 
+                key="index"  
+                :only-id="item.id"
+                tag="li"
+                :to="{name:'movie',params:{id:item.id,movieitem:item}}"
+            >
                 <img :src="item.cover.url" alt="">
                 <h3>{{item.title}}</h3>
                 <p>
                     <star v-if="item.rating" :starval="item.rating"></star>
                     {{item.rating?item.rating.value:'暂无评分'}}
                 </p>
-            </li>
+            </router-link>
         </ul>
         <h2>
             {{freeFilmTitle}}
             <router-link :to="{name:'freefilm'}" tag="span">更多</router-link>
         </h2>
         <ul class="focus-box clearfix">
-            <li v-for="item,index in freeFilmArr" key="index">
+            <router-link 
+                v-for="item,index in freeFilmArr" 
+                key="index" 
+                :only-id="item.id"
+                tag="li"
+                :to="{name:'movie',params:{id:item.id,movieitem:item}}"
+            >
                 <img :src="item.cover.url" alt="">
                 <h3>{{item.title}}</h3>
                 <p>
                     <star v-if="item.rating" :starval="item.rating"></star>
                     {{item.rating?item.rating.value:'暂无评分'}}
                 </p>
-            </li>
+            </router-link>
         </ul>
         <h2>
             {{newFilmTitle}}
             <router-link :to="{name:'newfilm'}" tag="span">更多</router-link>
         </h2>
         <ul class="focus-box clearfix">
-            <li v-for="item,index in newFilmArr" key="index">
+            <router-link 
+                v-for="item,index in newFilmArr" 
+                key="index" 
+                :only-id="item.id"
+                tag="li"
+                :to="{name:'movie',params:{id:item.id,movieitem:item}}"
+            >
                 <img :src="item.cover.url" alt="">
                 <h3>{{item.title}}</h3>
                 <p>
                     <star v-if="item.rating" :starval="item.rating"></star>
                     {{item.rating?item.rating.value:'暂无评分'}}
                 </p>
-            </li>
+            </router-link>
         </ul>
         <!-- <h2>
             免费在线观看影片
@@ -104,16 +122,12 @@
                     this.newFilmArr = data.subject_collection_items
                 }
             )
-            /*axios.get('http://localhost:3200/api/aaa')
-            .then((data)=>{
-                this.playingArr = data.data.list.subjects
-            })*/
         }
     }
 </script>
 
 <style scoped>
-    #hotfilm{
+    #films{
         width:100%;
         overflow:hidden;
     }

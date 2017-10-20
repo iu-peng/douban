@@ -344,7 +344,6 @@ app.use((req, res, next) => {
 
 function getPagesHtml(urls){
     return new Promise((resolve,reject) => {
-      console.log(22)
         var urlParse = url.parse(urls);
 
         let options = {
@@ -401,17 +400,33 @@ app.get('/api/goodskind', (req, res) => {
   res.send(goodskind)
 })
 
-//请求正在热映电影
+//请求评论信息
 app.get('/api/filmsHot',function (req,res){
-  getPagesHtml('https://api.douban.com/v2/movie/in_theaters')
+  let id = req.query.id
+  console.log(id)
+  // getPagesHtml(`https://m.douban.com/rexxar/api/v2/movie/${id}/credits`)
+  // getPagesHtml(`https://m.douban.com/rexxar/api/v2/movie/${id}/credits`)
+  getPagesHtml(`https://m.douban.com/rexxar/api/v2/movie/${id}/interests?count=14&order_by=hot&start=0&ck=y36Q&for_mobile=1`)
   .then(function (data){
-    //console.log(data.toString())
-    
+    //console.log(data)
+    //data = JSON.parse(data)
     res.send(data.toString());
   }) 
 })
 
-
+//请求电影导演演员信息
+app.get('/api/credits',function (req,res){
+  let id = req.query.id
+  console.log(id)
+  // getPagesHtml(`https://m.douban.com/rexxar/api/v2/movie/${id}/credits`)
+  // getPagesHtml(`https://m.douban.com/rexxar/api/v2/movie/${id}/credits`)
+  getPagesHtml(`https://m.douban.com/rexxar/api/v2/movie/${id}/credits`)
+  .then(function (data){
+    //console.log(data)
+    //data = JSON.parse(data)
+    res.send(data.toString());
+  }) 
+})
 /*app.get('/item', (req, res) => {
   let {id} = req.query;
 

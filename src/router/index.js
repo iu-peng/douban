@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+Vue.use(Router)
 
 import App from '@/App'
 import Home from '@/components/home'
@@ -12,8 +13,9 @@ import Freefilm from '@/components/views/freefilm/freefilm'
 import Newfilm from '@/components/views/newfilm/newfilm'
 //电影主页
 import Films from '@/components/views/films/filmhome'
+//电影详情页
+import Details from '@/components/views/filmdetails/details'
 
-Vue.use(Router)
 
 export default new Router({
 mode:'history',
@@ -46,6 +48,11 @@ routes: [
 				path: '/newfilm',
 				component:Newfilm,
 				name:'newfilm'
+			},
+			{
+				path: '/movie/:id',
+				component:Details,
+				name:'movie'
 			}
 		]
     }

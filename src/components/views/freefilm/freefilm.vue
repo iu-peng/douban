@@ -1,8 +1,13 @@
 <template>
-    <div id="hotfilm">
+    <div class="hotfilm">
         <h2>{{hotFilmTitle}}</h2>
         <ul class="focus-box">
-            <li v-for="item,index in allData">
+            <router-link 
+                v-for="item,index in allData"
+                key="index"
+                :to="{name:'movie',params:{id:item.id,movieitem:item}}"
+                tag="li"
+            >
                 <img :src="item.cover.url" alt="">
                 <h3>{{item.title}}</h3>
                 <p>
@@ -10,7 +15,7 @@
                     {{item.rating?item.rating.value:'暂无评分'}}
                 </p>
                 <span class="or-play">{{item.actions[0]}}</span>
-            </li>
+            </router-link>
         </ul>
     </div>
 </template>
